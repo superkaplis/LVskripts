@@ -85,6 +85,7 @@ function transpile(inputFilePath) {
   } catch (error) {
     console.error('Kļūda:', error.message);
     process.exit(1);
+  }
 }
 
 const args = process.argv.slice(2);
