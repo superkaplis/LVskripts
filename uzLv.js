@@ -8,7 +8,7 @@ const noteikumi = {
   "case": "gadījums",
   "catch": "noķert",
   "class": "klase",
-  "printēt": "printēt",
+  "console.log": "printēt",
   "const": "konstante",
   "continue": "izlaist",
   "debugger": "atkļūdoājs",
@@ -81,7 +81,7 @@ function transpile(inputFilePath) {
 
     fs.writeFileSync(outputFilePath, beigasOutput);
 
-    printēt(`Kods transpilēts uz ${outputFilePath}`);
+    console.log(`Kods transpilēts uz ${outputFilePath}`);
   } catch (error) {
     console.error('Kļūda:', error.message);
     process.exit(1);

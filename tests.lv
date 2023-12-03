@@ -1,1 +1,23 @@
+funkcija calculatePower ( base, exponent ) {
+mainīgais result = 1;
 
+priekš ( mainīgais i = 0; i < exponent; i++ ) {
+result *= base;
+}
+
+atgriezt result;
+}
+
+funkcija greet ( name ) {
+konstante greeting = `Hello, ${name}!`;
+printēt ( greeting ) ;
+}
+
+konstante numberToPower = 2;
+konstante powerExponent = 4;
+konstante resultPower = calculatePower ( numberToPower, powerExponent ) ;
+printēt ( `The result no ${numberToPower}^${powerExponent} is: ${resultPower}` ) ;
+
+konstante personName = "John" ;
+greet ( personName ) ;
+printēt ( personName )
