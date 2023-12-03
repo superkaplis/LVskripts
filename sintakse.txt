@@ -1,4 +1,4 @@
-  LVskripts     ||| JAVASCRIPT
+  **LVskripts** ||| **JAVASCRIPT**
   "argumenti"   ||| "arguments",
   "gaidīt"      ||| "await",
   "pārtraukt"   ||| "break",

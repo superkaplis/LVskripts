@@ -3,8 +3,12 @@ LVskripts ir Javascript ar latviešu valodas sintaksi
 # Instalācija
     npm install lv-skripts -global
 # Izmatošana
-LVskripts faila transpilēšana uz Javascript failu:
-     lv-skripts compile tests.js
+LVskripts transpilēšana uz Javascript:
+       
+    lv-skripts compile tests.lv
+    lv-skripts -c tests.lv
+Javascript transpilēšana uz LVskripts
+    lv-skripts -otradi tests.js
 # Sintakse
 Skatīt sintakse.txt
 # Piemērs
