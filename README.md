@@ -6,8 +6,10 @@ LVskripts ir Javascript ar latviešu valodas sintaksi
 LVskripts transpilēšana uz Javascript:
        
     lv-skripts compile tests.lv
+    VAI
     lv-skripts -c tests.lv
 Javascript transpilēšana uz LVskripts
+    
     lv-skripts -otradi tests.js
 # Sintakse
 Skatīt sintakse.txt
