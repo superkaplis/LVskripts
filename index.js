@@ -53,40 +53,39 @@ let noteikumi = {
 };
 
 function createReverseObj(obj) {
-  const reverseMapping = {};
+  const otradais = {};
   for (const key in obj) {
-    reverseMapping[obj[key]] = key;
+    otradais[obj[key]] = key;
   }
-  return reverseMapping;
+  return otradais;
 }
 
 function transpile(inputFilePath, otradi = false) {
   try {
-    if(otradi === true){ noteikumi = createReverseObj(noteikumi)}
+    if (otradi === true) { noteikumi = createReverseObj(noteikumi) }
     const sakumaKods = fs.readFileSync(inputFilePath, 'utf8');
     const lines = sakumaKods.split('\n');
     let output = [];
 
-      for (const line of lines) {
-        if (line.trim() === '') {
-          output.push('');
-        } else {
-          const wordArray = line.match(/(['"][^'"]*['"])|[^\s()]+|[()]/g) || [];
+    for (const line of lines) {
+      if (line.trim() === '') {
+        output.push('');
+      } else {
+        const linijasVardi = line.match(/(['"][^'"]*['"])|[^\s()]+|[()]/g) || [];
 
-          
-          const changedLine = wordArray.map(word => {
-            if (word in noteikumi) {
-              return noteikumi[word];
-            } else {
-              return word;
-            }
-          }).join(' ');
+        const changedLine = linijasVardi.map(word => {
+          if (word in noteikumi) {
+            return noteikumi[word];
+          } else {
+            return word;
+          }
+        }).join(' ');
 
-          output.push(changedLine);
-        }
+        output.push(changedLine);
       }
-      
+    }
     const beigasOutput = output.join('\n');
+    
     const nosaukumsBezExt = inputFilePath.slice(0, inputFilePath.lastIndexOf('.'));
     let beigas = otradi ? 'lv' : 'js';
     const outputFilePath = path.join(path.dirname(inputFilePath), `${nosaukumsBezExt}.${beigas}`);
@@ -102,7 +101,7 @@ function transpile(inputFilePath, otradi = false) {
 const args = process.argv.slice(2);
 const inputFilePath = args[1];
 
-if (args[0] == '-compile' || args[0] == '-c') {
+if (args[0] == '-kompilēt' || args[0] == '-k' || args[0] == '-compile' || args[0] == '-c') {
   if (path.extname(inputFilePath) == '.lv') {
     transpile(inputFilePath, false);
   } else {
