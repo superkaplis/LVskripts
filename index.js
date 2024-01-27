@@ -85,7 +85,7 @@ function transpile(inputFilePath, otradi = false) {
       }
     }
     const beigasOutput = output.join('\n');
-    
+
     const nosaukumsBezExt = inputFilePath.slice(0, inputFilePath.lastIndexOf('.'));
     let beigas = otradi ? 'lv' : 'js';
     const outputFilePath = path.join(path.dirname(inputFilePath), `${nosaukumsBezExt}.${beigas}`);
@@ -116,5 +116,5 @@ if (args[0] == '-kompilēt' || args[0] == '-k' || args[0] == '-compile' || args[
     process.exit(1);
   }
 } else {
-  console.error('Kļūda. Izmanto -compile(-c) lai pārveidotu uz JS.(vai -otradi lai parveidotu uz LVskriptu)');
+  console.error('Kļūda. Izmanto -kompilēt (-k), lai pārveidotu uz JS. (vai -otradi lai parveidotu uz LVskriptu)');
 }
