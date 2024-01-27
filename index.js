@@ -52,17 +52,18 @@ let noteikumi = {
   "atdot": "yield",
 };
 
-function createReverseObj(obj) {
+function apgriezt(obj) {
   const otradais = {};
   for (const key in obj) {
     otradais[obj[key]] = key;
   }
-  return otradais;
+  noteikumi = otradais;
 }
 
-function transpile(inputFilePath, otradi = false) {
+let beigas = 'js';
+
+function transpile(inputFilePath) {
   try {
-    if (otradi === true) { noteikumi = createReverseObj(noteikumi) }
     const sakumaKods = fs.readFileSync(inputFilePath, 'utf8');
     const lines = sakumaKods.split('\n');
     let output = [];
@@ -87,7 +88,6 @@ function transpile(inputFilePath, otradi = false) {
     const beigasOutput = output.join('\n');
 
     const nosaukumsBezExt = inputFilePath.slice(0, inputFilePath.lastIndexOf('.'));
-    let beigas = otradi ? 'lv' : 'js';
     const outputFilePath = path.join(path.dirname(inputFilePath), `${nosaukumsBezExt}.${beigas}`);
 
     fs.writeFileSync(outputFilePath, beigasOutput);
@@ -103,14 +103,17 @@ const inputFilePath = args[1];
 
 if (args[0] == '-kompilēt' || args[0] == '-k' || args[0] == '-compile' || args[0] == '-c') {
   if (path.extname(inputFilePath) == '.lv') {
-    transpile(inputFilePath, false);
+    beigas = 'js'
+    transpile(inputFilePath);
   } else {
     console.error('Kļūda. Faila tipam jābūt .lv');
     process.exit(1);
   }
 } else if (args[0] == '-otradi' || args[0] == '-o') {
   if (path.extname(inputFilePath) == '.js') {
-    transpile(inputFilePath, true);
+    apgriezt(noteikumi)
+    beigas = 'lv'
+    transpile(inputFilePath);
   } else {
     console.error('Kļūda. Faila tipam jābūt .js');
     process.exit(1);
