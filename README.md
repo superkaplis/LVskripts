@@ -16,23 +16,21 @@ Skatīt sintakse.txt
 # Piemērs
 Javascript
 ```
-const skaitlis = 4;
-let kāpināt = true;
+const cipari = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-if (kāpināt) {
-console.log(skaitlis**2);
-} else {
-console.log(skaitlis);
+for (let i of cipari) {
+    if (i % 2 === 1) {
+        console.log(i);
+    }
 }
+
 ```
 LVskripts
 ```
-konsante skaitlis = 4;
-mainīgais kāpināt = patiess ;
-
-ja (kāpināt) {
-  printēt(skaitlis**2);
-} citādi {
-  printēt(skaitlis)
+konstante cipari = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+priekš (mainīgais i no cipari) {
+    ja (i % 2 === 1) {
+      printēt(i);
+    }
 }
 ```
