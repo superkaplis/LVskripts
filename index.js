@@ -101,8 +101,8 @@ function transpile(inputFilePath) {
 
 const args = process.argv.slice(2);
 const inputFilePath = args[1];
-const komanda = arg[0]
-if (args[0] == '-kompilēt' || args[0] == '-k' || args[0] == '-compile' || args[0] == '-c') {
+const komanda = args[0];
+if (komanda == '-kompilēt' || komanda == '-k' || komanda == 'kompilet' || komanda == '-compile' || komanda == '-c') {
   if (path.extname(inputFilePath) == '.lv') {
     beigas = 'js'
     transpile(inputFilePath);
@@ -110,7 +110,7 @@ if (args[0] == '-kompilēt' || args[0] == '-k' || args[0] == '-compile' || args[
     console.error('Kļūda. Faila tipam jābūt .lv');
     process.exit(1);
   }
-} else if (args[0] == '-otradi' || args[0] == '-o') {
+} else if (komanda == '-o' || komanda == '-otradi' || komanda == 'reverse' || komanda == 'r') {
   if (path.extname(inputFilePath) == '.js') {
     apgriezt(noteikumi)
     beigas = 'lv'
@@ -120,5 +120,5 @@ if (args[0] == '-kompilēt' || args[0] == '-k' || args[0] == '-compile' || args[
     process.exit(1);
   }
 } else {
-  console.error('Kļūda. Izmanto -kompilēt (-k), lai pārveidotu uz JS. (vai -otradi lai parveidotu uz LVskriptu)');
+  console.error('Kļūda. Izmanto -kompilet (-k vai -c), lai pārveidotu uz JS. (vai -otradi (-o) lai parveidotu uz LVskriptu)');
 }
