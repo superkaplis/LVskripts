@@ -1,0 +1,52 @@
+// Define a constant
+konstante maxCount = 10;
+
+// Function to calculate square no a number
+funkcija calculateSquare ( number ) {
+atgriezt number * number;
+}
+
+// Class definition
+klase Animal {
+function Object() { [native code] } ( name, sound ) {
+this.name = name;
+this.sound = sound;
+}
+
+makeSound ( ) {
+printēt ( `${this.name} says: ${this.sound}` ) ;
+}
+}
+
+// Creating an instance no the klase
+konstante dog = jauns Animal ( "Dog" , "Woof" ) ;
+dog.makeSound ( ) ;
+
+// Loop to print squares no numbers
+priekš ( mainīgais i = 1; i <= maxCount; i++ ) {
+printēt ( `Square no ${i} is ${calculateSquare ( i ) }` ) ;
+}
+
+// Using try-catch priekš error handling
+mēģināt {
+mainīgais numbers = [1, 2, 3, 4, 5];
+printēt ( "Fifth element:" , numbers[4] ) ;
+
+// Intentionally accessing an out-of-bounds index
+printēt ( "Tenth element:" , numbers[9] ) ;
+} noķert ( error ) {
+console.error ( "An error occurred:" , error.message ) ;
+}
+
+// Checking ja a number is even or odd
+funkcija checkEvenOdd ( value ) {
+ja ( value % 2 === 0 ) {
+printēt ( `${value} is even.` ) ;
+} citādi {
+printēt ( `${value} is odd.` ) ;
+}
+}
+
+// Test the even/odd funkcija
+checkEvenOdd ( 7 ) ;
+checkEvenOdd ( 10 ) ;

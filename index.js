@@ -11,6 +11,7 @@ let noteikumi = {
   "klase": "class",
   "printēt": "console.log",
   "konstante": "const",
+  "konstruktors": "constructor",
   "izlaist": "continue",
   "atkļūdoājs": "debugger",
   "noklusējums": "default",
@@ -72,7 +73,7 @@ function transpile(inputFilePath) {
       if (line.trim() === '') {
         output.push('');
       } else {
-        const linijasVardi = line.match(/(['"][^'"]*['"])|[^\s()]+|[()]/g) || [];
+        const linijasVardi = line.match(/ ( ['"][^'"]*['"] ) |[^\s ( ) ]+|[ ( ) ]/g) || [];
 
         const changedLine = linijasVardi.map(word => {
           if (word in noteikumi) {
@@ -100,7 +101,7 @@ function transpile(inputFilePath) {
 
 const args = process.argv.slice(2);
 const inputFilePath = args[1];
-
+const komanda = arg[0]
 if (args[0] == '-kompilēt' || args[0] == '-k' || args[0] == '-compile' || args[0] == '-c') {
   if (path.extname(inputFilePath) == '.lv') {
     beigas = 'js'
