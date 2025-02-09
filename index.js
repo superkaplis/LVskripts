@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-let noteikumi = {
+let rules = {
   "argumenti": "arguments",
   "gaidīt": "await",
   "pārtraukt": "break",
@@ -53,45 +53,44 @@ let noteikumi = {
   "atdot": "yield",
 };
 
-function apgriezt(obj) {
-  const otradais = {};
+function reverseRules(obj) {
+  const reverse = {};
   for (const key in obj) {
-    otradais[obj[key]] = key;
+    reverse[obj[key]] = key;
   }
-  noteikumi = otradais;
+  rules = reverse;
 }
 
-let beigas = 'js';
+let extension = 'js';
 
 function transpile(inputFilePath) {
   try {
-    const sakumaKods = fs.readFileSync(inputFilePath, 'utf8');
-    const lines = sakumaKods.split('\n');
+    const inputCode = fs.readFileSync(inputFilePath, 'utf8');
+    const lines = inputCode.split('\n');
     let output = [];
 
     for (const line of lines) {
       if (line.trim() === '') {
         output.push('');
       } else {
-        const linijasVardi = line.match(/ ( ['"][^'"]*['"] ) |[^\s ( ) ]+|[ ( ) ]/g) || [];
+        const lineWords = line.match(/(['"][^'"]*['"])|[^\s();]+|[();]|\s+/g) || [];
 
-        const changedLine = linijasVardi.map(word => {
-          if (word in noteikumi) {
-            return noteikumi[word];
+        const changedLine = lineWords.map(word => {
+          if (word in rules) {
+            return rules[word];
           } else {
             return word;
           }
-        }).join(' ');
+        }).join('');
 
         output.push(changedLine);
       }
     }
-    const beigasOutput = output.join('\n');
+    output = output.join('\n');
 
-    const nosaukumsBezExt = inputFilePath.slice(0, inputFilePath.lastIndexOf('.'));
-    const outputFilePath = path.join(path.dirname(inputFilePath), `${nosaukumsBezExt}.${beigas}`);
-
-    fs.writeFileSync(outputFilePath, beigasOutput);
+    const { dir, name } = path.parse(inputFilePath);
+    const outputFilePath = path.join(dir, `${name}.${extension}`);
+    fs.writeFileSync(outputFilePath, output);
     console.log(`Kods transpilēts uz ${outputFilePath}`);
   } catch (error) {
     console.error('Kļūda:', error.message);
@@ -99,26 +98,24 @@ function transpile(inputFilePath) {
   }
 }
 
-const args = process.argv.slice(2);
-const inputFilePath = args[1];
-const komanda = args[0];
-if (komanda == '-kompilēt' || komanda == '-k' || komanda == 'kompilet' || komanda == '-compile' || komanda == '-c') {
+const [command, inputFilePath] = process.argv.slice(2,4);
+if (['-k', '-kompilet', '-compile', '-c'].includes(command)) {
   if (path.extname(inputFilePath) == '.lv') {
-    beigas = 'js'
+    extension = 'js'
     transpile(inputFilePath);
   } else {
     console.error('Kļūda. Faila tipam jābūt .lv');
     process.exit(1);
   }
-} else if (komanda == '-o' || komanda == '-otradi' || komanda == 'reverse' || komanda == 'r') {
+} else if (['-r', 'reverse', '-otradi', '-o'].includes(command)) {
   if (path.extname(inputFilePath) == '.js') {
-    apgriezt(noteikumi)
-    beigas = 'lv'
+    reverseRules(rules)
+    extension = 'lv'
     transpile(inputFilePath);
   } else {
     console.error('Kļūda. Faila tipam jābūt .js');
     process.exit(1);
   }
 } else {
-  console.error('Kļūda. Izmanto -kompilet (-k vai -c), lai pārveidotu uz JS. (vai -otradi (-o) lai parveidotu uz LVskriptu)');
+  console.error('Kļūda. Izmanto -kompilet (-k), lai pārveidotu uz JS. (vai -otradi (-o) lai parveidotu uz LVskriptu)');
 }
