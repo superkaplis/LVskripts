@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
+const vm = require('vm');
 
 let rules = {
   "argumenti": "arguments",
@@ -61,8 +62,6 @@ function reverseRules(obj) {
   rules = reverse;
 }
 
-let extension = 'js';
-
 function transpile(inputFilePath) {
   try {
     const inputCode = fs.readFileSync(inputFilePath, 'utf8');
@@ -87,33 +86,52 @@ function transpile(inputFilePath) {
       }
     }
     output = output.join('\n');
-
-    const { dir, name } = path.parse(inputFilePath);
-    const outputFilePath = path.join(dir, `${name}.${extension}`);
-    fs.writeFileSync(outputFilePath, output);
-    console.log(`Kods transpilēts uz ${outputFilePath}`);
+    return output
+    
   } catch (error) {
     console.error('Kļūda:', error.message);
     process.exit(1);
   }
 }
 
-const [command, inputFilePath] = process.argv.slice(2,4);
+function writeOutputFile(code, extension){
+  const { dir, name } = path.parse(inputFilePath);
+  const outputFilePath = path.join(dir, `${name}${extension}`);
+  fs.writeFileSync(outputFilePath, code);
+  console.log(`Kods transpilēts uz ${outputFilePath}`);
+}
+
+let [command, inputFilePath] = process.argv.slice(2, 4);
+if (inputFilePath !== undefined){
+  code = transpile(inputFilePath)
+}
 if (['-k', '-kompilet', '-compile', '-c'].includes(command)) {
   if (path.extname(inputFilePath) == '.lv') {
-    extension = 'js'
-    transpile(inputFilePath);
+    writeOutputFile(code,'.js')
   } else {
     console.error('Kļūda. Faila tipam jābūt .lv');
     process.exit(1);
   }
-} else if (['-r', 'reverse', '-otradi', '-o'].includes(command)) {
+} else if (['-reverse', '-otradi', '-o'].includes(command)) {
   if (path.extname(inputFilePath) == '.js') {
     reverseRules(rules)
-    extension = 'lv'
-    transpile(inputFilePath);
+    writeOutputFile(code,'.lv')
   } else {
     console.error('Kļūda. Faila tipam jābūt .js');
+    process.exit(1);
+  }
+} else if (['-run', '-r'].includes(command) || inputFilePath === undefined) {
+  inputFilePath = command;
+  if (path.extname(inputFilePath) == '.lv') {
+    try {
+      code = transpile(inputFilePath)
+      vm.runInThisContext(code);  
+    } catch (error) {
+      console.error('Kļūda pie koda izpildes:', error.message);
+      process.exit(1);
+    }
+  } else {
+    console.error('Kļūda. Faila tipam jābūt .lv');
     process.exit(1);
   }
 } else {
