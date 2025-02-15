@@ -87,14 +87,14 @@ function transpile(inputFilePath) {
     }
     output = output.join('\n');
     return output
-    
+
   } catch (error) {
     console.error('Kļūda:', error.message);
     process.exit(1);
   }
 }
 
-function writeOutputFile(code, extension){
+function writeOutputFile(code, extension) {
   const { dir, name } = path.parse(inputFilePath);
   const outputFilePath = path.join(dir, `${name}${extension}`);
   fs.writeFileSync(outputFilePath, code);
@@ -102,12 +102,10 @@ function writeOutputFile(code, extension){
 }
 
 let [command, inputFilePath] = process.argv.slice(2, 4);
-if (inputFilePath !== undefined){
-  code = transpile(inputFilePath)
-}
+
 if (['-k', '-kompilet', '-compile', '-c'].includes(command)) {
   if (path.extname(inputFilePath) == '.lv') {
-    writeOutputFile(code,'.js')
+    writeOutputFile(transpile(inputFilePath), '.js')
   } else {
     console.error('Kļūda. Faila tipam jābūt .lv');
     process.exit(1);
@@ -115,25 +113,26 @@ if (['-k', '-kompilet', '-compile', '-c'].includes(command)) {
 } else if (['-reverse', '-otradi', '-o'].includes(command)) {
   if (path.extname(inputFilePath) == '.js') {
     reverseRules(rules)
-    writeOutputFile(code,'.lv')
+    writeOutputFile(transpile(inputFilePath), '.lv')
   } else {
     console.error('Kļūda. Faila tipam jābūt .js');
     process.exit(1);
   }
-} else if (['-run', '-r'].includes(command) || inputFilePath === undefined) {
-  inputFilePath = command;
+} else if (['-run', '-r'].includes(command) || (inputFilePath === undefined && command !== undefined &&command.includes('.lv'))) {
+  if (inputFilePath === undefined) {
+    inputFilePath = command;
+  }
   if (path.extname(inputFilePath) == '.lv') {
     try {
-      code = transpile(inputFilePath)
-      vm.runInThisContext(code);  
+      vm.runInThisContext(transpile(inputFilePath));
     } catch (error) {
-      console.error('Kļūda pie koda izpildes:', error.message);
+      console.error('Kļūda:', error.message);
       process.exit(1);
     }
   } else {
-    console.error('Kļūda. Faila tipam jābūt .lv');
+    console.error('Kļūda: Faila tipam jābūt .lv');
     process.exit(1);
   }
 } else {
-  console.error('Kļūda. Izmanto -kompilet (-k), lai pārveidotu uz JS. (vai -otradi (-o) lai parveidotu uz LVskriptu)');
+  console.error('Kļūda: Izmanto -kompilet (-k), lai pārveidotu uz JS. (vai -otradi (-o) lai parveidotu uz LVskriptu)');
 }

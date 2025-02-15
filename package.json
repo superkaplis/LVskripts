@@ -10,7 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/superkaplis/LVskripts"
   },
-  "keywords": ["transpiler"],
+  "keywords": [
+    "transpiler"
+  ],
   "author": "Martins",
   "license": "ISC",
   "bin": {
