@@ -1,5 +1,5 @@
 {
-  "name": "LVskripts",
+  "name": "lvskripts",
   "version": "1.0.0",
   "description": "Transpiler, which transpiles code from latvian JS (LVskripts) to regular JS",
   "main": "index.js",
