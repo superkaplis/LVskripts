@@ -1,14 +1,14 @@
 {
-  "name": "lv-skripts",
-  "version": "1.2.0",
-  "description": "Transpiler, which transpiles code from latvian JS to regular JS",
+  "name": "LVskripts",
+  "version": "1.0.0",
+  "description": "Transpiler, which transpiles code from latvian JS (LVskripts) to regular JS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/superkaplis/lv-skripts"
+    "url": "git+https://github.com/superkaplis/LVskripts"
   },
   "keywords": ["transpiler"],
   "author": "Martins",
