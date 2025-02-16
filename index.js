@@ -4,7 +4,10 @@ const path = require('path');
 const vm = require('vm');
 
 let rules = {
+  "abstrakts": "abstract",
   "argumenti": "arguments",
+  "kā": "as",
+  "asinhrons": "async",
   "gaidīt": "await",
   "pārtraukt": "break",
   "gadījums": "case",
@@ -15,6 +18,7 @@ let rules = {
   "konstruktors": "constructor",
   "izlaist": "continue",
   "atkļūdoājs": "debugger",
+  "deklarēt": "declare",
   "noklusējums": "default",
   "dzēst": "delete",
   "darīt": "do",
@@ -22,33 +26,47 @@ let rules = {
   "uzskaitījums": "enum",
   "novērtēt": "eval",
   "eksportēt": "export",
-  "paplašināt": "extends",
+  "paplašina": "extends",
   "nepatiess": "false",
   "beigās": "finally",
   "priekš": "for",
   "funkcija": "function",
+  "aiziet": "goto",
   "ja": "if",
-  "implementēt": "implements",
+  "implementē": "implements",
   "importēt": "import",
   "iekš": "in",
+  "Bezgalība": "Infinity",
   "instanceno": "instanceof",
   "saskarne": "interface",
+  "atslēgano": "keyof",
   "mainīgais": "let",
+  "modulis": "module",
+  "nosaukumtelpa": "namespace",
+  "necipars": "NaN",
   "jauns": "new",
   "nav": "null",
   "no": "of",
+  "pārrakstīt": "override",
   "paka": "package",
   "privāts": "private",
+  "Solījums": "Promise",
   "aizsargāts": "protected",
   "publisks": "public",
+  "lasīttikai": "readonly",
   "atgriezt": "return",
+  "pieprasīt": "require",
+  "apmierina": "satisfies",
+  "kavējums": "setTimeout",
   "statisks": "static",
-  "mainīt": "switch",
+  "izvēle": "switch",
   "šis": "this",
   "mest": "throw",
   "patiess": "true",
   "mēģināt": "try",
-  "tipsno": "typeof",
+  "tips": "type",
+  "tipa": "typeof",
+  "nedefinēts":"undefined",
   "tukšums": "void",
   "kamēr": "while",
   "atdot": "yield",
@@ -72,7 +90,7 @@ function transpile(inputFilePath) {
       if (line.trim() === '') {
         output.push('');
       } else {
-        const lineWords = line.match(/(['"][^'"]*['"])|[^\s();]+|[();]|\s+/g) || [];
+        const lineWords = line.match(/(['"][^'"]*['"])|[^\s();:]+|[();:]|\s+/g) || [];
 
         const changedLine = lineWords.map(word => {
           if (word in rules) {
@@ -118,7 +136,7 @@ if (['-k', '-kompilet', '-compile', '-c'].includes(command)) {
     console.error('Kļūda. Faila tipam jābūt .js');
     process.exit(1);
   }
-} else if (['-run', '-r'].includes(command) || (inputFilePath === undefined && command !== undefined &&command.includes('.lv'))) {
+} else if (['-run', '-r'].includes(command) || (inputFilePath === undefined && command !== undefined && command.includes('.lv'))) {
   if (inputFilePath === undefined) {
     inputFilePath = command;
   }
