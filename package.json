@@ -1,6 +1,6 @@
 {
   "name": "lvskripts",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Transpiler, which transpiles code from latvian JS (LVskripts) to regular JS",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,6 @@
   "author": "Martins",
   "license": "ISC",
   "bin": {
-    "lv-skripts": "./index.js"
+    "lvskripts": "./index.js"
   }
 }
