@@ -3,9 +3,9 @@ LVskripts ir Javascript ar latviešu valodas sintaksi
 # Instalācija
     npm install lvskripts -global
 # Izmatošana
-LVskripts koda izpildīšana: 
+LVskripts koda izpildīšana:
+       
     lvskripts -run tests.lv
-
 LVskripts transpilēšana uz Javascript:
        
     lvskripts -compile tests.lv
@@ -13,7 +13,7 @@ Javascript transpilēšana uz LVskripts
     
     lvskripts -reverse tests.js
 # Sintakse
-Skatīt sintakse.txt
+Skatīt *sintakse.md* priekš visiem rezervētajiem vārdiem 
 # Piemērs
 Javascript
 ```
