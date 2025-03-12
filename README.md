@@ -1,8 +1,8 @@
-# LVskripts 😀
+# LVskripts 🇱🇻
 LVskripts ir Javascript ar latviešu valodas sintaksi
 # Instalācija
     npm install lvskripts -global
-# Izmatošana
+# Izmantošana
 LVskripts koda izpildīšana:
        
     lvskripts -run tests.lv
