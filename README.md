@@ -3,14 +3,15 @@ LVskripts ir Javascript ar latviešu valodas sintaksi
 # Instalācija
     npm install lvskripts -global
 # Izmatošana
+LVskripts koda izpildīšana: 
+    lvskripts -run tests.lv
+
 LVskripts transpilēšana uz Javascript:
        
-    lvskripts -kompilet tests.lv
-    VAI
-    lvskripts -k tests.lv
+    lvskripts -compile tests.lv
 Javascript transpilēšana uz LVskripts
     
-    lvskripts -otradi tests.js
+    lvskripts -reverse tests.js
 # Sintakse
 Skatīt sintakse.txt
 # Piemērs
@@ -34,3 +35,5 @@ priekš (mainīgais i no cipari) {
     }
 }
 ```
+# Visual studio paplašinājums
+Instalē 'LVskripts' paplašinājumu no VS marketplace, priekš sintakses iezīmēšanas un koda automātiskās pabeigšanas.

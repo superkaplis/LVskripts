@@ -67,6 +67,7 @@ let rules = {
   "tips": "type",
   "tipa": "typeof",
   "nedefinēts":"undefined",
+  "main": "var",
   "tukšums": "void",
   "kamēr": "while",
   "atdot": "yield",
@@ -91,7 +92,6 @@ function transpile(inputFilePath) {
         output.push('');
       } else {
         const lineWords = line.match(/(['"][^'"]*['"])|[^\s();:]+|[();:]|\s+/g) || [];
-
         const changedLine = lineWords.map(word => {
           if (word in rules) {
             return rules[word];
@@ -105,7 +105,6 @@ function transpile(inputFilePath) {
     }
     output = output.join('\n');
     return output
-
   } catch (error) {
     console.error('Kļūda:', error.message);
     process.exit(1);
